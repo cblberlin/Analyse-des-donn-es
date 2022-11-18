@@ -51,8 +51,8 @@ head(ross)
 
 ```{r, echo=FALSE}
 boxplot(ross$annee.m)
-hist(ross$annee.m)
-
+hist(ross$poids.m)
+hist(ross$longeur_du_tarsus.m)
 
 ```
 

@@ -5,10 +5,10 @@ author: "Bailin CAI, Souane MOHAMED, Damian , Alexandre ZAFARI(Groupe B)"
 date: "16/11/2022"
 output:
   html_document:
-    df_print: paged
     toc: yes
     toc_depth: 4
   pdf_document:
+    df_print: paged
     toc: yes
     toc_depth: 4
   html_notebook:
@@ -16,10 +16,9 @@ output:
     toc: yes
     toc_depth: 4
 linkcolor: red
-
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -50,9 +49,9 @@ head(ross)
 
 
 ```{r, echo=FALSE}
-boxplot(ross$annee.m)
+#boxplot(ross$annee.m)
 hist(ross$poids.m)
-hist(ross$longeur_du_tarsus.m)
+#hist(ross$longeur_du_tarsus.m)
 
 ```
 

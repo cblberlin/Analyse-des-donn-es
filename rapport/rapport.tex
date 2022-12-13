@@ -5,6 +5,8 @@
 \usepackage{amssymb,amsbsy,amsmath,amsfonts,amscd}
 \usepackage{geometry}
 \usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{tabulary}
  \geometry{
  a4paper,
  total={170mm,257mm},
@@ -68,6 +70,7 @@ Par contre il semble avoir une sur la longueur de la queue, la longueur du tarsu
     \label{table:1}
 \end{table}
 
+
 \paragraph{Commentaires Tableau 1}
 Comme on pouvait s'y attendre, le poids en moyenne est significativement plus basses chez le sfemelles que chez les mâles (p-value $< 0,5$).
 Il en ait de même pour la longueur des ailes, la longueur des tarsus, la longueur de la queue, la longueur de la bec, la hauteur de la bec, la projection des ailes.
@@ -79,6 +82,8 @@ Par contre, les deux groupes ne diffèrent pas significativement pour l'âge. La
 
 \begin{table}[h!]
     \centering
+    \begin{adjustbox}{width=0.4\textwidth}
+    \small
     \begin{tabular}{||c c c c c||} 
      \hline
      Variable & Mâle(coeff) & P-value & Femelle(coeff) & P-value \\ [0.5ex] 
@@ -90,6 +95,7 @@ Par contre, les deux groupes ne diffèrent pas significativement pour l'âge. La
      5 & 88 & 788 & 6344 & 1\\ [0.5ex] 
      \hline
     \end{tabular}
+\end{adjustbox}
     \caption{Le test du coefficient de corrélation linéaire entre la longueur du tarsus et certaines traits morphologiques chez les mâles et chez les femelles}
     \label{table:2}
 \end{table}

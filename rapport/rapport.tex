@@ -1,9 +1,10 @@
-\documentclass[12pt]{article}
+\documentclass[12pt, twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{amssymb,amsbsy,amsmath,amsfonts,amscd}
 \usepackage{geometry}
+\usepackage{tabularx}
  \geometry{
  a4paper,
  total={170mm,257mm},
@@ -15,7 +16,6 @@
 \usepackage{graphicx}
 \usepackage{pgfpages}
 \usepackage{blindtext}
-\pgfpagesuselayout{2 on 1}[a4paper]
 
 
 \begin{document}
@@ -36,45 +36,116 @@
 évolutive de la sélection dans ces traits, on présente des estimations e corrélations d'héritabilité $h^2$
 
 \section{Analyse Descriptive}
-\begin{itemize}
-\item on commence par introduire les donn\'ees
-\end{itemize}
 
-\subsection{Pr\'e-traitement des données}
+L'âge moyen des $544$ sujets inclus dans la cohorte était de 32 mois ($q_1 = 20; q_3 = 35$), $35\%$ étaient des femelles et $65\%$ étaient des mâles.
+Longueur des ailes moyen mesuré à l'inclusion était de 99cm. Le poids moyen mesuré était $33,9$g. La longueur de la queue moyen mesuré était de 33cm. La hauteur du bec
+moyen mesuré était de 5cm. La largeur du bec moyen mesuré étatit de 5cm.
+
+
+\subsection{Visualisation des données}
 % dans \item ajouter les phrases
-\begin{itemize}
-    \item on transf\'erer les donn\'ees quatitatives sous formes numériques
-\end{itemize}
+Décrivez et comparez à l'aide de tests statistiques les caractéristiques dans les deux groupes mâle et femelle. L'objectif ici est de décrire et de comparer les groupes
+mâle et femme en fonction des caractéristiques recuiillies qui sont toutes des variables quantitatives, en utilisant un test de comparaison de deux moyennes. les effectifs dans 
+chaque groupe étant suffisant grande. Le test de wilcoxon est assez robuste au non-respect de la normalité des distributions.
+
+Les box-plot montre qu'on ne peut pas confirmer que le sexe a une influence sur l'âge, la projection des ailes, la hauteur de la bec, la largeur de la bec, la longueur de la bec, le poids.
+Par contre il semble avoir une sur la longueur de la queue, la longueur du tarsus, la longueur des ailes.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{||c c c c||} 
+     \hline
+     Variable & Mâle(mean) & Femelle(mean) & P-value \\ [0.5ex] 
+     \hline\hline
+     Poids & 6 & 87837 & 787 \\ 
+     2 & 7 & 78 & 5415 \\
+     3 & 545 & 778 & 7507 \\
+     4 & 545 & 18744 & 7560 \\
+     5 & 88 & 788 & 6344 \\ [0.5ex] 
+     \hline
+    \end{tabular}
+    \caption{Test comparaisons des caractéristiques chez les mâles et femelles}
+    \label{table:1}
+\end{table}
+
+\paragraph{Commentaires Tableau 1}
+Comme on pouvait s'y attendre, le poids en moyenne est significativement plus basses chez le sfemelles que chez les mâles (p-value $< 0,5$).
+Il en ait de même pour la longueur des ailes, la longueur des tarsus, la longueur de la queue, la longueur de la bec, la hauteur de la bec, la projection des ailes.
+Par contre, les deux groupes ne diffèrent pas significativement pour l'âge. La largeur des becs en moyenne est significativement plus basses chez les mâles que chez les femelles (p-value $> 0,5$)
+
+\newpage
+
+\subsection{Matrice de corrélation}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{||c c c c c||} 
+     \hline
+     Variable & Mâle(coeff) & P-value & Femelle(coeff) & P-value \\ [0.5ex] 
+     \hline\hline
+     Poids & 6 & 87837 & 787 & 1\\ 
+     2 & 7 & 78 & 5415 & 1\\
+     3 & 545 & 778 & 7507 & 1\\
+     4 & 545 & 18744 & 7560 & 1\\
+     5 & 88 & 788 & 6344 & 1\\ [0.5ex] 
+     \hline
+    \end{tabular}
+    \caption{Le test du coefficient de corrélation linéaire entre la longueur du tarsus et certaines traits morphologiques chez les mâles et chez les femelles}
+    \label{table:2}
+\end{table}
+
+\paragraph{Commentaires Tableau 2}
+
+D'après les résultats du Tableau \ref{table:2} et les deux matrice de corrélation, chez les mâles, seules les variables longeueur des ailes, longueur du bec, longueur de la queue, hauteur de la bec, largeur
+de la bec, poids, sont significativement liées linéairement à la PAM($ p < 0,5 $). Les liens sont positifs. On retrouve les mêmes résultats chez les femelles en ce qui concerne longueur des ailes, longueur du bec, largueur de la bec et poids,
+mais pas pour la longueur des ailes, longueur du vbec, largueur de la bec ($p = 0,097$). L'âge et la projection des ailes ne sont pas significativement liées linéairement à la longueur du tarsus dans les deux groupes.
+
+\section{La regression linéaire multiple}
+On va présenter bblablalba
+
+\subsection{Le choix des variables}
+Pour le choix du modèle, nous vous appliqué une procédure de simplification descendante pas à pas. La procédure de la simplification
+descendante pas à pas est une approche visant à améliorer le modèle explicatif. On réalise un premier modèle avec toutes les variables spécifiées,
+puis on regarde s'il est possible d'améliorer le modèle avec toutes les variables spécifiées, puis on regarde s'il est possible d'améliorer le modèle
+en supprimant une des variales dont la suppression améliorera les plus le modèle. Puis on recommence le même en supprimant une des variables dont la suppression améliorera le plus le modèle.
+Puis on recommence le même procédure pour voir si la suppression d'une seconde variables peut encore améliorer le modèle eet ainsi de suite. Lorsque le modèle ne peut plus être amélioré par la suppression
+d'une variable on s'arrête.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{||c c c c||} 
+     \hline
+     Variable & Mâle(coeff) & P-value & Femelle(coeff) \\ [0.5ex] 
+     \hline\hline
+     Poids & 6 & 87837 & 787 \\ 
+     2 & 7 & 78 & 5415 \\
+     3 & 545 & 778 & 7507 \\
+     4 & 545 & 18744 & 7560 \\
+     5 & 88 & 788 & 6344 \\ [0.5ex] 
+     \hline
+    \end{tabular}
+    \caption{Relation entre le poids et certaines traits morphologiques. Analyse multivariable. Régression linéaire}
+    \label{table:3}
+\end{table}
+
+\subsection{Analyse des résidus}
+Cette étape concerne la vérification des hypothèses énoncées sur l'erreur estimée. Il s'agit du test de normalité du résidu. La validation des modèles est attachée à
+l'idée selon laquelle les résidus sont indépendants et identiquement distribuées suivant la loi normale centrée avec un variance constante.
+
+% Le figure
+
+L'alignement des points sur la première bisserctrice est presque parfaite, on en déduit l'hypothèse selon laquelle les résidus théoriques suivent une loinormale mais pas centrée réduite.
+
+% Le figure
+
+D'après les graphiques ci-dessus, $3.6\%$ des résidus sont aberrants, ce qui est acceptable pour un jeu de données de taille $544$.
+De plus, ces résidus ne sont pas très éloignés des limites d'intervalle. Ce ne sont pas de véritables observations oberrantes, car $96,4\%$ des
+observations sont entre les deux seuils. $6\%$ sont des points leviers et un seul distance de Cook élévée(observation 26 est à la fois levier et aberrante).
 
 
-\subsection{Description des données}
-% ajouter les description des données
-\begin{itemize}
-    \item c'est la bases des donn\'ees sur les oiseaux
-    \item S\'eparer les donn\'ees en 2 groupes male et femelle
-    \item Tracer les histogrammes conditionnelle
-    \item Faire les tests de normalit\'e
-    \item Afficher les boxplot s\'eparer en 2 groupes
-    \item Faire les tests de comparaison de la variance
-    \item Regarder la corr\'elation entre les variables quantitatives
-    \item Regarder la corr\'elation en 2 groupes male et femelle
-    \item Test de corr\'elation dans les 2 groupes
-    \item Analyse PCA
-\end{itemize}
 
+\section{ANOVA} 
 
-
-\section{La regression lin\'eaire}
-\begin{itemize}
-\item \`A partir de la matrice de la corr\'elation, on fait d'abord la regression lin\'eaire simple
-\item Puis la regression multiples
-\end{itemize}
-
-
-\section{Probl\`eme classification} 
-\begin{itemize}
-\item 
-\end{itemize}
 
 \section{Conclusion} 
 

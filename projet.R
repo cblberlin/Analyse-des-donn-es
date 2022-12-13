@@ -2,12 +2,34 @@ library(tidyverse)
 library(dplyr)
 library(ggplot2)
 
+# pré-traitement des données
 ross <- read.table("Rossignol.csv", sep = ";", header = T)
 
 ross %>% select(-Individus.m,-sexe.m)
 ross <- data.frame(lapply(ross, function(x) {gsub(",", ".", x)}))
 
 ross <- ross %>% mutate_at(c(-1,-3), as.numeric)
+
+# Séparer en 2 groupes male et femelle
+ross_male <- ross[which(ross$sexe.m == "male"),]
+ross_femelle <- ross[which(ross$sexe.m == "femelle"),]
+
+# Test de comparaison
+histogram(~ross$poids.m | ross$sexe.m)
+shapiro.test(ross_male$poids.m)
+shapiro.test(ross_femelle$poids.m)
+var.test(ross$poids.m~ross$sexe.m)
+t.test(ross$poids.m~ross$sexe.m, var.equal=F)
+chisq.test(ross$sexe.m, ross$poids.m)
+
+# le résultat qui nous montre que
+boxplot(ross$poids.m~ross$sexe.m)
+
+var.test(ross$hauteur_du_bec.m~ross$sexe.m)
+t.test(ross$hauteur_du_bec.m~ross$sexe.m, var.equal=T)
+
+var.test(ross$projection_des_ailes.m~ross$sexe.m)
+t.test(ross$projection_des_ailes.m~ross$sexe.m, var.equal=T)
 
 # analyse descriptive
 # Histograme des variables

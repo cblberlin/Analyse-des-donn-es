@@ -1,86 +1,287 @@
 library(tidyverse)
 library(dplyr)
-library(ggplot2)
-
-# pré-traitement des données
 ross <- read.table("Rossignol.csv", sep = ";", header = T)
-
-ross %>% select(-Individus.m,-sexe.m)
+#ross %>% select(-Individus.m,-sexe.m)
 ross <- data.frame(lapply(ross, function(x) {gsub(",", ".", x)}))
-
 ross <- ross %>% mutate_at(c(-1,-3), as.numeric)
+####
 
-# Séparer en 2 groupes male et femelle
-ross_male <- ross[which(ross$sexe.m == "male"),]
-ross_femelle <- ross[which(ross$sexe.m == "femelle"),]
+library(epiR)
+library(epiDisplay)
+library(prettyR)
+epi.descriptives(ross$longueur_aile.m)$a
+epi.descriptives(ross$longueur_du_tarsus.m)$a
+epi.descriptives(ross$longueur_de_la_queue.m)$a
+epi.descriptives(ross$longueur_du_bec.m)$a
+epi.descriptives(ross$largeur_du_bec.m)$a
+epi.descriptives(ross$hauteur_du_bec.m)$a
+epi.descriptives(ross$projection_des_ailes.m)$a
+epi.descriptives(ross$age.m)$a
+epi.descriptives(ross$poids.m)$a
+epi.descriptives(ross$annee.m)$a
+table(ross$sexe.m)
+####
+library(lattice)
+#par(mfrow = c(3,3))
+layout(matrix(1:3,3,3))
+bwplot(ross$age.m~ross$sexe.m)
+bwplot(ross$projection_des_ailes.m~ross$sexe.m)
+bwplot(ross$hauteur_du_bec.m~ross$sexe.m)
+bwplot(ross$longueur_du_tarsus.m~ross$sexe.m)
+bwplot(ross$longueur_du_bec.m~ross$sexe.m)
+bwplot(ross$longueur_de_la_queue.m~ross$sexe.m)
+bwplot(ross$longueur_aile.m~ross$sexe.m)
+bwplot(ross$largeur_du_bec.m~ross$sexe.m)
+bwplot(ross$poids.m~ross$sexe.m)
+####
+histogram(~ ross$age.m | ross$sexe.m)
+histogram(~ross$projection_des_ailes.m |ross$sexe.m)
+histogram(~ross$hauteur_du_bec.m |ross$sexe.m)
+histogram(~ross$longueur_du_tarsus.m | ross$sexe.m)
+histogram(~ross$longueur_du_bec.m | ross$sexe.m)
+histogram(~ross$longueur_de_la_queue.m |ross$sexe.m)
+histogram(~ross$longueur_aile.m | ross$sexe.m)
+histogram(~ross$largeur_du_bec.m | ross$sexe.m)
+histogram(~ross$poids.m| ross$sexe.m)
+####
+# ###########Créer de sous-fichiers pour les groupes femelle et male
+femelle <- ross[which(ross$sexe.m=='femelle'),]
+male<- ross[which(ross$sexe.m=='male'),]
+#if (ross$age.m<= )
+####
+#test de comparaison de moyenne
+epi.descriptives(male$poids.m)$a
+epi.descriptives(femelle$poids.m)$a
+shapiro.test(x =male$poids.m)
+shapiro.test(x =femelle$poids.m)
+wilcox.test(male$poids.m, femelle$poids.m, alternative = "g", paired=F)
+####
+epi.descriptives(male$age.m)$a
+epi.descriptives(femelle$age.m)$a
+shapiro.test(x =male$age.m)
+shapiro.test(x =femelle$age.m)
+wilcox.test(male$age.m, femelle$age.m,alternative = "g", paired=F)
+####
+epi.descriptives(male$longueur_du_tarsus.m)$a
+epi.descriptives(femelle$longueur_du_tarsus.m)$a
+shapiro.test(x =male$longueur_du_tarsus.m)
+shapiro.test(x =femelle$longueur_du_tarsus.m)
+wilcox.test(male$longueur_du_tarsus.m, femelle$longueur_du_tarsus.m, alternative = "g", paired=F)
+####
+epi.descriptives(male$projection_des_ailes.m)$a
+epi.descriptives(femelle$projection_des_ailes.m)$a
+shapiro.test(x =male$projection_des_ailes.m)
+shapiro.test(x =femelle$projection_des_ailes.m)
+wilcox.test(male$longueur_du_tarsus.m, femelle$longueur_du_tarsus.m, alternative = "g", paired=F)
+####
+epi.descriptives(male$longueur_du_bec.m)$a
+epi.descriptives(femelle$longueur_du_bec.m)$a
+shapiro.test(x =male$longueur_du_bec.m)
+shapiro.test(x =femelle$longueur_du_bec.m)
+wilcox.test(male$longueur_du_bec.m, femelle$longueur_du_bec.m, alternative = "g", paired=F)
+####
+epi.descriptives(male$longueur_de_la_queue.m)$a
+epi.descriptives(femelle$longueur_de_la_queue.m)$a
+shapiro.test(x =male$longueur_de_la_queue.m)
+shapiro.test(x =femelle$longueur_de_la_queue.m)
+wilcox.test(male$longueur_de_la_queue.m, femelle$longueur_de_la_queue.m, alternative = "g", paired=F)
+#####
+epi.descriptives(male$longueur_aile.m)$a
+epi.descriptives(femelle$longueur_aile.m)$a
+shapiro.test(x =male$longueur_aile.m)
+shapiro.test(x =femelle$longueur_aile.m)
+wilcox.test(male$longueur_aile.m, femelle$longueur_aile.m, alternative = "g", paired=F)
+####
+epi.descriptives(male$hauteur_du_bec.m)$a
+epi.descriptives(femelle$hauteur_du_bec.m)$a
+shapiro.test(x =male$hauteur_du_bec.m)
+shapiro.test(x =femelle$hauteur_du_bec.m)
+wilcox.test(male$hauteur_du_bec.m, femelle$hauteur_du_bec.m, alternative = "g", paired=F)
+#####
+epi.descriptives(male$largeur_du_bec.m)$a
+epi.descriptives(femelle$largeur_du_bec.m)$a
+shapiro.test(x =male$largeur_du_bec.m)
+shapiro.test(x =femelle$largeur_du_bec.m)
+wilcox.test(male$largeur_du_bec.m, femelle$largeur_du_bec.m, alternative = "g", paired=F)
 
-# Test de comparaison
-histogram(~ross$poids.m | ross$sexe.m)
-shapiro.test(ross_male$poids.m)
-shapiro.test(ross_femelle$poids.m)
-var.test(ross$poids.m~ross$sexe.m)
-t.test(ross$poids.m~ross$sexe.m, var.equal=F)
-chisq.test(ross$sexe.m, ross$poids.m)
+##corélation chez les femelle
+library(corrplot)
+layout(matrix(1:2,1,2))
+mcar=femelle[,-c(1:3)]
+mcor=cor(mcar)
+corrplot(mcor, type="upper", order="hclust", tl.col="black", tl.srt=45)
+#corrplot(mcor, method="color")
+#corrplot(mcor, method="number")
+cor.test(male$age.m,male$poids.m)
+cor.test(femelle$age.m,femelle$poids.m)
+cor.test(ross$age.m,ross$poids.m)
+##corélation chez les males
+mcar=male[,-c(1:3)]
+mcor=cor(mcar)
+corrplot(mcor, type="upper", order="hclust", tl.col="black", tl.srt=45)
+#corrplot(mcor, method="color")
+#corrplot(mcor, method="number")
+####corialation
+mcar=ross[,-c(1:3)]
+mcor=cor(mcar)
+corrplot(mcor, type="upper", order="hclust", tl.col="black", tl.srt=45)
++corrplot(mcor, method="color")
+####
+library(missMDA)
+library(FactoMineR)
+library(factoextra)
+zer=PCA(mcar)
+fviz_pca_biplot(zer,geom.ind = "point", # Montre les points seulement (mais pas le "text")
+                col.ind = ross$sexe.m, # colorer by groups
+                palette = c("#00AFBB", "#E7B800", "#FC4E07"),axes = c(1, 2),
+                addEllipses = TRUE, # Ellipses de concentration
+                legend.title = "Groups")
+####
+lm1=glm(formula=ross$poids.m~ -ross$projection_des_ailes.m+ross$age.m+ross$hauteur_du_bec.m+ross$longueur_du_tarsus.m-ross$longueur_du_bec.m-ross$largeur_du_bec.m-ross$longueur_de_la_queue.m+ross$longueur_aile.m -ross$sexe.m,family=gaussian(link="identity"),data=ross)
+summary(lm1)
+anova(lm1)
+confint(lm1, level=0.95)
+layout(matrix(1:4,2,2))
+plot(lm1)
+hist(lm1$residuals)
+qqnorm(lm1$residuals)
+deviance(lm1)
+############
+n <- length(ross$poids.m)
+df.residus <- data.frame(residu = rstudent(lm1))
+IDval.ab <- (1:n)[abs(df.residus$residu)>2]
+df.residus$ID <- rep("",n)
+df.residus[IDval.ab,]$ID <- IDval.ab
+df.residus$group <- rep("Non Suspect",n)
+df.residus[IDval.ab,]$group <- "Suspect"
 
-# le résultat qui nous montre que
-boxplot(ross$poids.m~ross$sexe.m)
+plot2 <- ggplot(data = df.residus) + aes(x=1:n, y = residu, color = group) + geom_point()
+plot2 <- plot2 + geom_hline(yintercept = -2, col = "blue", linetype = 2)
+plot2 <- plot2 + geom_hline(yintercept = 2, col = "blue", linetype = 2)
+plot2 <- plot2 + geom_text(aes(label=ID),hjust=0, vjust=0)
+plot2 <- plot2 + xlab('Index') + ylab('Résidus studentis?s')
+#######
+quant.t <- qt((1:n)/n,n-2)
+df_qq <- data.frame(Obs = sort(df.residus$residu), Theo = quant.t)
+qq.plot <-
+  ggplot(data = df_qq, aes(x = Obs, y = Theo)) + geom_point(shape = 1, size = 2.5)
+qq.plot <-
+  qq.plot + geom_abline(
+    slope = 1,
+    intercept = 0,
+    col = "blue",
+    linetype = 2,
+    size = 0.5
+  )
+qq.plot <- qq.plot + xlab("Quantiles empiriques des résidus") + ylab("Student T(n-p-1)")
+qq.plot <- qq.plot + xlim(-3,3) + ylim(-5,5)
 
-var.test(ross$hauteur_du_bec.m~ross$sexe.m)
-t.test(ross$hauteur_du_bec.m~ross$sexe.m, var.equal=T)
+#######
+H <- hatvalues(lm1)
+p <- lm1$rank
+seuil1 <- 2*p/n
+seuil2 <- 3*p/n
+df.H <- data.frame(H = H)
+ID_levier <- (1:n)[df.H$H>seuil1]
+df.H$ID <- rep("",n)
+df.H[ID_levier,]$ID <- ID_levier
+df.H$group <- rep("Non levier",n)
+df.H[ID_levier,]$group <- "Levier"
+plot3 <- ggplot(data = df.H) + aes(x=1:n, y = H, color=group) + geom_point()
+plot3 <- plot3 + geom_hline(yintercept = seuil1, col = "blue", linetype = 2)
+plot3 <- plot3 + geom_hline(yintercept = seuil2, col = "blue", linetype = 3)
+plot3 <- plot3 + geom_text(aes(label=ID),hjust=0, vjust=0)
+plot3 <- plot3 + xlab('Index') + ylab('hii')
+#######Distance de cook
+cook <- cooks.distance(lm1)
+df.cook <- data.frame(cook = cook)
+s1 <- qf(0.5,p,n-p)
+s2 <- qf(0.1,p,n-p)
+plot4 <- ggplot(data = df.cook) + aes(x=1:n, y = cook) + geom_point()
+plot4 <- plot4 + geom_hline(yintercept = s1, col = "blue", linetype = 2)
+plot4 <- plot4 + geom_hline(yintercept = s2, col = "blue", linetype = 3)
+plot4 <- plot4 + xlab('Index') + ylab('Distance de Cook')
+#########
+library("gridExtra")
+grid.arrange(qq.plot,plot2,plot4,plot3,ncol=2)
+###########
+lm2=glm(formula=ross$poids.m~ -ross$projection_des_ailes.m+ross$age.m+ross$hauteur_du_bec.m+ross$longueur_du_tarsus.m-ross$longueur_du_bec.m-ross$largeur_du_bec.m-ross$longueur_de_la_queue.m+ross$longueur_aile.m +ross$sexe.m+ross$age.m:ross$sexe.m,family=gaussian(link="identity"),data=ross)
+summary(lm2)
+anova(lm2)
+confint(lm2, level=0.95)
+layout(matrix(1:4,2,2))
+plot(lm2)
+shapiro.test(rstudent(lm))
+####
+############
+n <- length(ross$poids.m)
+df.residus <- data.frame(residu = rstudent(lm2))
+IDval.ab <- (1:n)[abs(df.residus$residu)>2]
+df.residus$ID <- rep("",n)
+df.residus[IDval.ab,]$ID <- IDval.ab
+df.residus$group <- rep("Non Suspect",n)
+df.residus[IDval.ab,]$group <- "Suspect"
 
-var.test(ross$projection_des_ailes.m~ross$sexe.m)
-t.test(ross$projection_des_ailes.m~ross$sexe.m, var.equal=T)
-
-# analyse descriptive
-# Histograme des variables
-par(mfrow = c(3,3))
-#hist(ross$annee.m, main = "Histogramme de l'année", xlab = "année", freq = TRUE)
-hist(ross$age.m, main = "Histogramme d'âge", xlab = "âge", freq = TRUE)
-#H1 = ggplot(data = ross, aes(x = age.m)) + geom_histogram()
-
-hist(ross$poids.m, main = "Histrogramme du poids", xlab = "Poids", freq = TRUE)
-#title("Histograme pour le poids")
-hist(ross$longueur_aile.m, main = "Histogramme du longeur d'aille", xlab = "Longueur d'aile", freq = TRUE)
-hist(ross$longueur_du_tarsus.m, main = "Histogramme du longueur du tarsus", xlab = "Longueur du tarsus", freq = TRUE)
-hist(ross$longueur_de_la_queue.m, main = "Histogramme du longueur de la queue", xlab = "Longueur de la queue", freq = TRUE)
-hist(ross$projection_des_ailes.m, main = "Histogramme de la projection des ailes", xlab = "La projection des ailes", freq = TRUE)
-hist(ross$longueur_du_bec.m, main = "Histogramme du longueur du bec", xlab = "Longueur du bec", freq = TRUE)
-hist(ross$largeur_du_bec.m, main = "Histogramme du largeur du bec", xlab = "Largeur du bec", freq = TRUE)
-hist(ross$hauteur_du_bec.m, main = "Histogramme d'hauteur du bec", xlab = "Hauteur du bec", freq = TRUE)
-
-# Boxplot
-par(mfrow = c(3,3))
-boxplot(ross$age.m~ross$sexe.m)
-boxplot(ross$poids.m~ross$sexe.m)
-boxplot(ross$longueur_aile.m~ross$sexe.m)
-boxplot(ross$longueur_du_tarsus.m~ross$sexe.m)
-boxplot(ross$longueur_de_la_queue.m~ross$sexe.m)
-boxplot(ross$projection_des_ailes.m~ross$sexe.m)
-boxplot(ross$longueur_du_bec.m~ross$sexe.m)
-boxplot(ross$hauteur_du_bec.m~ross$sexe.m)
-boxplot(ross$largeur_du_bec.m~ross$sexe.m)
-
-# Test de lois
-shapiro.test(ross$age.m)
-shapiro.test(ross$poids.m)
-shapiro.test(ross$longueur_aile.m)
-shapiro.test(ross$longueur_du_tarsus.m)
-shapiro.test(ross$longueur_de_la_queue.m)
-shapiro.test(ross$projection_des_ailes.m)
-shapiro.test(ross$longueur_du_bec.m)
-shapiro.test(ross$hauteur_du_bec.m)
-shapiro.test(ross$largeur_du_bec.m)
-
-# Corrélation
-ross_quantitative = ross[c(-1, -2, - 3)]
-mat_cor <- cor(ross_quantitative)
-round(mat_cor, 2)
-
-# Regression
-reg_poids <- lm(ross_quantitative$poids.m~as.matrix(ross_quantitative[c(-2)]))
-summary(reg_poids)
-
-reg_tarsus <- lm(ross_quantitative$longueur_du_tarsus.m~as.matrix(ross_quantitative[c(-4)]))
-summary(reg_tarsus)
-
+plot5 <- ggplot(data = df.residus) + aes(x=1:n, y = residu, color = group) + geom_point()
+plot5 <- plot5 + geom_hline(yintercept = -2, col = "blue", linetype = 2)
+plot5<- plot5 + geom_hline(yintercept = 2, col = "blue", linetype = 2)
+plot5 <- plot5 + geom_text(aes(label=ID),hjust=0, vjust=0)
+plot5 <- plot5 + xlab('Index') + ylab('Résidus studentis?s')
+####
+quant.t <- qt((1:n)/n,n-2)
+df_qq <- data.frame(Obs = sort(df.residus$residu), Theo = quant.t)
+qq.plot7 <-
+  ggplot(data = df_qq, aes(x = Obs, y = Theo)) + geom_point(shape = 1, size = 2.5)
+qq.plot7 <-
+  qq.plot7 + geom_abline(
+    slope = 1,
+    intercept = 0,
+    col = "blue",
+    linetype = 2,
+    size = 0.5
+  )
+qq.plot7 <- qq.plot7 + xlab("Quantiles empiriques des r?sidus") + ylab("Student T(n-p-1)")
+qq.plot7 <- qq.plot7 + xlim(-3,3) + ylim(-5,5)
+#######
+#######
+H <- hatvalues(lm2)
+p <- lm2$rank
+seuil1 <- 2*p/n
+seuil2 <- 3*p/n
+df.H <- data.frame(H = H)
+ID_levier <- (1:n)[df.H$H>seuil1]
+df.H$ID <- rep("",n)
+df.H[ID_levier,]$ID <- ID_levier
+df.H$group <- rep("Non levier",n)
+df.H[ID_levier,]$group <- "Levier"
+plot6 <- ggplot(data = df.H) + aes(x=1:n, y = H, color=group) + geom_point()
+plot6 <- plot6 + geom_hline(yintercept = seuil1, col = "blue", linetype = 2)
+plot6 <- plot6 + geom_hline(yintercept = seuil2, col = "blue", linetype = 3)
+plot6 <- plot6 + geom_text(aes(label=ID),hjust=0, vjust=0)
+plot6 <- plot6 + xlab('Index') + ylab('hii')
+quant.t <- qt((1:n)/n,n-2)
+df_qq <- data.frame(Obs = sort(df.residus$residu), Theo = quant.t)
+qq.plot7 <-
+  ggplot(data = df_qq, aes(x = Obs, y = Theo)) + geom_point(shape = 1, size = 2.5)
+qq.plot7 <-
+  qq.plot7 + geom_abline(
+    slope = 1,
+    intercept = 0,
+    col = "blue",
+    linetype = 2,
+    size = 0.5
+  )
+qq.plot7 <- qq.plot7 + xlab("Quantiles empiriques des r?sidus") + ylab("Student T(n-p-1)")
+qq.plot7 <- qq.plot7 + xlim(-4,4) + ylim(-5,5)
+#######
+#######Distance de cook
+cook <- cooks.distance(lm1)
+df.cook <- data.frame(cook = cook)
+s1 <- qf(0.5,p,n-p)
+s2 <- qf(0.1,p,n-p)
+plot8 <- ggplot(data = df.cook) + aes(x=1:n, y = cook) + geom_point()
+plot8 <- plot8 + geom_hline(yintercept = s1, col = "blue", linetype = 2)
+plot8 <- plot8 + geom_hline(yintercept = s2, col = "blue", linetype = 3)
+plot8 <- plot8 + xlab('Index') + ylab('Distance de Cook')
+grid.arrange(qq.plot7,plot5,plot8,plot6,ncol=2)
 
